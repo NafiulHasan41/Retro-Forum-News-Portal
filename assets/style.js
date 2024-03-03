@@ -60,3 +60,76 @@ const displayLatesNews= news =>{
 }
 
 loadDataLates();
+
+
+// for dicussion section
+
+const loadDataNews = async () =>{
+
+    const resp = await fetch("https://openapi.programming-hero.com/api/retro-forum/posts");
+
+    const data = await resp.json();
+
+    const news= data.posts;
+
+   
+    displayAllNews(news)
+
+}
+
+const displayAllNews= news =>{
+     
+    const allnewsCardContainer = document.getElementById("newsContainer");
+
+    news.forEach(value => {
+        
+        const lNewsCard = document.createElement("div");
+       
+
+        lNewsCard.classList=`hero max-w-[772px] bg-base-200 rounded-3xl my-3`;
+
+        lNewsCard.innerHTML =`
+        <div id="${value.id}" class="hero-content flex-col lg:flex-row">
+        <div class="indicator rounded-2xl ">
+            <span class="indicator-item badge ${value.isActive ? "bg-green-600":"bg-red-600"}"></span>
+            <div class="grid w-20 h-20 bg-base-300 "><img class=" w-20 h-20 rounded-2xl" src="${value.image}" alt="Shoes" /></div>
+        </div>
+
+      <div class="p-3 md:w-[550px]">
+        <div class="flex flex-row justify-start gap-2">
+            <p class="font-medium text-gray-600 text-xs">#${value.category}</p>
+            <p class="font-medium text-gray-600 text-xs">Author : ${value.author.name}</p>
+        </div>
+        <h1 class=" font-bold text-xl text-black">${value.title}</h1>
+        <p class="py-1 text-sm font-normal text-gray-700">${value.description}</p>
+         
+        <div class=" p-2 mt-1 border-t border-dashed  border-gray-900 w-full mx-auto "></div>
+
+        <div class="flex flex-row justify-between">
+
+            <div class="flex flex-row justify-start gap-2">
+                 <p class="text-xs"> <span class="px-1"><i class="fa-regular fa-message"></i></span>${value.comment_count}</p>
+                 <p class="text-xs"> <span class="px-1"><i class="fa-regular fa-eye"></i></span>${value.view_count}</p>
+                 <p class="text-xs"> <span class="px-1"><i class="fa-regular fa-clock"></i></span>${value.posted_time}</p>
+            </div>
+
+            <div>
+                <p  class="Read-email-section text-xs bg-green-500 rounded-full p-2 flex items-center justify-center"> <span class="px-1 text-white"><i class="fa-regular fa-envelope-open"></i></span></p>
+            </div>
+        </div>
+
+      </div>
+       </div>`;
+
+
+        allnewsCardContainer.appendChild(lNewsCard);
+
+
+    });
+
+
+
+    
+}
+
+loadDataNews();
