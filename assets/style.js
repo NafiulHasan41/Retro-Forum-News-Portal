@@ -1,14 +1,19 @@
 
 const loadDataLates = async () =>{
 
+    const spin2=document.getElementById("spinner2");
+    spin2.classList.remove("hidden");
+
     const resp = await fetch("https://openapi.programming-hero.com/api/retro-forum/latest-posts");
 
     const data = await resp.json();
 
     const news= data;
 
+    setTimeout(() => {
+        displayLatesNews(news);
+      }, 2000);
    
-    displayLatesNews(news)
 
 }
 
@@ -54,6 +59,10 @@ const displayLatesNews= news =>{
         
     });
 
+
+    const spin2=document.getElementById("spinner2");
+    spin2.classList.add("hidden");
+
    
 
 
@@ -64,22 +73,49 @@ loadDataLates();
 
 // for dicussion section
 
-const loadDataNews = async () =>{
+const loadDataNews = async (conDiton) =>{
 
-    const resp = await fetch("https://openapi.programming-hero.com/api/retro-forum/posts");
+    const spin1=document.getElementById("spinner1");
+    spin1.classList.remove("hidden");
 
-    const data = await resp.json();
 
-    const news= data.posts;
+    if(conDiton === undefined)
+    {
+        const resp = await fetch("https://openapi.programming-hero.com/api/retro-forum/posts");
+
+        const data = await resp.json();
+        const news= data.posts;
+
+        setTimeout(() => {
+            displayAllNews(news);
+          }, 2000);
 
    
-    displayAllNews(news)
+  
+    }
+    else
+    {
+        const resp = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${conDiton}`);
+
+        const data = await resp.json();
+        const news= data.posts;
+
+        setTimeout(() => {
+            displayAllNews(news);
+          }, 2000);
+    }
+  
+
+
+    
 
 }
 
 const displayAllNews= news =>{
      
     const allnewsCardContainer = document.getElementById("newsContainer");
+
+    allnewsCardContainer.textContent='';
 
     news.forEach(value => {
         
@@ -128,8 +164,29 @@ const displayAllNews= news =>{
     });
 
 
+    const spin1=document.getElementById("spinner1");
+    spin1.classList.add("hidden");
 
+    const spin11=document.getElementById("newsRead");
+    spin11.classList.remove("hidden");
+
+
+  
     
 }
 
-loadDataNews();
+// loadDataNews();
+
+window.addEventListener('load' ,loadDataNews());
+window.removeEventListener('load' ,loadDataNews);
+
+
+
+const handleSearch=()=>
+{
+    const searchInput = document.getElementById("nSearch");
+
+    const sInputTxt = searchInput.value;
+     loadDataNews(sInputTxt);
+   
+}
