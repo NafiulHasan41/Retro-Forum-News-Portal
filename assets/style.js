@@ -150,7 +150,7 @@ const displayAllNews= news =>{
             </div>
 
             <div>
-                <p  class="Read-email-section text-xs bg-green-500 rounded-full p-2 flex items-center justify-center"> <span class="px-1 text-white"><i class="fa-regular fa-envelope-open"></i></span></p>
+                <p  class="Read-email-section text-xs bg-green-500 rounded-full p-2 flex items-center justify-center" onclick="showdetails('${value.title}','${value.view_count}')"> <span class="px-1 text-white"><i class="fa-regular fa-envelope-open"></i></span></p>
             </div>
         </div>
 
@@ -169,6 +169,8 @@ const displayAllNews= news =>{
 
     const spin11=document.getElementById("newsRead");
     spin11.classList.remove("hidden");
+
+
 
 
   
@@ -190,3 +192,36 @@ const handleSearch=()=>
      loadDataNews(sInputTxt);
    
 }
+
+
+// Now eventlistner 
+let count1 =0;
+
+
+const remailnumber = document.getElementById("remail1");
+const remailnumberR = document.getElementById("containerReadEmail");
+
+function showdetails(title,count){
+
+    ++count1;
+    remailnumber.innerText=count1;
+      
+    const lNewsCard = document.createElement("div");
+       
+
+        lNewsCard.classList=`flex flex-row justify-between gap-2 bg-white p-2 rounded-2xl mt-4`;
+
+        lNewsCard.innerHTML =`
+        <p class="text-sm text-gray-400">${title}</p>
+        <div class="flex flex-row justify-start gap-2 items-center">
+            <p class="text-xs"><span class="px-1"><i class="fa-regular fa-eye"></i></span></p>
+            <p class="text-xs">${count}</p>
+        </div>
+        `;
+
+        remailnumberR.appendChild(lNewsCard);
+
+}
+
+
+
