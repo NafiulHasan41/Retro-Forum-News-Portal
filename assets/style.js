@@ -148,9 +148,9 @@ const displayAllNews= news =>{
                  <p class="text-xs"> <span class="px-1"><i class="fa-regular fa-eye"></i></span>${value.view_count}</p>
                  <p class="text-xs"> <span class="px-1"><i class="fa-regular fa-clock"></i></span>${value.posted_time}</p>
             </div>
-
+            
             <div>
-                <p  class="Read-email-section text-xs bg-green-500 rounded-full p-2 flex items-center justify-center" onclick="showdetails('${value.title}','${value.view_count}')"> <span class="px-1 text-white"><i class="fa-regular fa-envelope-open"></i></span></p>
+                <p  class="Read-email-section text-xs bg-green-500 rounded-full p-2 flex items-center justify-center" onclick="showdetails(\`${value.title}\`, ${ value.view_count})"> <span class="px-1 text-white"><i class="fa-regular fa-envelope-open"></i></span></p>
             </div>
         </div>
 
